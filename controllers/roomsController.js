@@ -1,53 +1,53 @@
 const Room = require("../models/roomModel");
 
 module.exports = {
-  getAllRooms: (req, res) => {
+  getAllRooms: (req, res, next) => {
     Room.find()
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(500).send(err);
+        next({ status: 500, message: err.message });
       });
   },
-  addNewRoom: (req, res) => {
+  addNewRoom: (req, res, next) => {
     Room(req.body)
       .save()
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(500).send(err);
+        next({ status: 500, message: err.message });
       });
   },
-  getRoom: (req, res) => {
+  getRoom: (req, res, next) => {
     const { id } = req.params;
     Room.findById(id)
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(404).send(err);
+        next({ status: 403, message: err.message });
       });
   },
-  changeRoomInfo: (req, res) => {
+  changeRoomInfo: (req, res, next) => {
     const { id } = req.params;
     Room.findByIdAndUpdate(id, req.body)
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(404).send(err);
+        next({ status: 403, message: err.message });
       });
   },
-  deleteRoom: (req, res) => {
+  deleteRoom: (req, res, next) => {
     const { id } = req.params;
     Room.findByIdAndRemove(id)
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(404).send(err);
+        next({ status: 403, message: err.message });
       });
   }
 };

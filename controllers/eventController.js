@@ -1,53 +1,53 @@
 const Event = require("../models/eventModel");
 
 module.exports = {
-  getAllEvents: (req, res) => {
+  getAllEvents: (req, res, next) => {
     Event.find()
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(500).send(err);
+        next({ status: 403, message: err.message });
       });
   },
-  addNewEvent: (req, res) => {
+  addNewEvent: (req, res, next) => {
     Event(req.body)
       .save()
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(500).send(err);
+        next({ status: 500, message: err.message });
       });
   },
-  getEventById: (req, res) => {
+  getEventById: (req, res, next) => {
     const { id } = req.params;
     Event.findById(id)
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(404).send(err);
+        next({ status: 403, message: err.message });
       });
   },
-  deleteEventById: (req, res) => {
+  deleteEventById: (req, res, next) => {
     const { id } = req.params;
     Event.findByIdAndRemove(id)
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(404).send(err);
+        next({ status: 403, message: err.message });
       });
   },
-  changeEventInfo: (req, res) => {
+  changeEventInfo: (req, res, next) => {
     const { id } = req.params;
     Event.findByIdAndUpdate(id, req.body)
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        res.status(404).send(err);
+        next({ status: 403, message: err.message });
       });
   }
 };

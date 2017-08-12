@@ -51,7 +51,6 @@ UserModel.pre("save", function(next) {
 
 // Create method to compare password input to password saved in database
 UserModel.methods.comparePassword = function(pw, cb) {
-  console.log(this.password);
   bcrypt.compare(pw, this.password, function(err, isMatch) {
     console.log(pw);
     if (err) {

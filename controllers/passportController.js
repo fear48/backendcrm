@@ -8,7 +8,7 @@ module.exports = {
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, message: "Please enter email and password." });
     } else {
-      var newUser = new User({
+      const newUser = new User({
         email: req.body.email,
         password: req.body.password
       });
@@ -16,10 +16,7 @@ module.exports = {
       // Attempt to save the user
       newUser.save(function(err) {
         if (err) {
-          return res.json({
-            success: false,
-            message: "That email address already exists."
-          });
+          return next({ status: 403, message: "User already exist" });
         }
         res.json({ success: true, message: "Successfully created new user." });
       });
@@ -31,12 +28,9 @@ module.exports = {
         email: req.body.email
       },
       function(err, user) {
-        if (err) throw err;
+        if (err);
         if (!user) {
-          res.send({
-            success: false,
-            message: "Authentication failed. User not found."
-          });
+          next({ status: 403, message: "User not found" });
         } else {
           // Check if password matches
           user.comparePassword(req.body.password, function(err, isMatch) {
@@ -47,10 +41,7 @@ module.exports = {
               });
               res.json({ success: true, token: "JWT " + token });
             } else {
-              res.send({
-                success: false,
-                message: "Authentication failed. Passwords did not match."
-              });
+              next({ status: 403, message: "Password did not match" });
             }
           });
         }

@@ -10,6 +10,7 @@ const roomsRouter = require("./routers/rooms");
 const eventsRouter = require("./routers/events");
 const passportRouter = require("./routers/passport");
 const logsRouter = require("./routers/logs");
+const errorHandler = require("./middlewares/errorHandler");
 
 // INITIALIZE APP //
 const app = express();
@@ -40,6 +41,14 @@ app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/logs", logsRouter);
+
+// ERRORS
+app.use((req, res, next) => {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+}); // Error 404
+app.use(errorHandler); // Always last (error handler)
 
 // STARTING SERVER //
 const port = process.env.port || 3000;
