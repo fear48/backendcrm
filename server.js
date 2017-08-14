@@ -10,6 +10,7 @@ const roomsRouter = require("./routers/rooms");
 const eventsRouter = require("./routers/events");
 const passportRouter = require("./routers/passport");
 const logsRouter = require("./routers/logs");
+const transactionRouter = require("./routers/transactions");
 const errorHandler = require("./middlewares/errorHandler");
 
 // INITIALIZE APP //
@@ -41,6 +42,7 @@ app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/logs", logsRouter);
+app.use("/transaction", transactionRouter);
 
 // ERRORS
 app.use((req, res, next) => {

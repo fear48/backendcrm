@@ -1,9 +1,14 @@
 const express = require("express");
 const roomsController = require("../controllers/roomsController");
+const passport = require("passport");
 
 const router = express.Router();
 
-router.get("/", roomsController.getAllRooms);
+router.get(
+  "/",
+  // passport.authenticate("jwt", { session: false }),
+  roomsController.getAllRooms
+);
 router.post("/", roomsController.addNewRoom);
 router.get("/:id", roomsController.getRoom);
 router.put("/:id", roomsController.changeRoomInfo);

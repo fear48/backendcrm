@@ -1,9 +1,15 @@
 const express = require("express");
 const userController = require("../controllers/userController");
+const isLogged = require("../middlewares/isLogged");
+const passport = require("passport");
 
 const router = express.Router();
 
-router.get("/", userController.getAllUsers);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  userController.getAllUsers
+);
 router.get("/:id", userController.getUserInfo);
 router.put("/:id", userController.changeUserInfo);
 router.delete("/:id", userController.deleteUser);

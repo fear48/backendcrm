@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
-// const CommentModel = new Schema({
-//   uid: { type: String },
-//   date: { type: Date, default: Date.now() },
-//   comment: { type: String }
-// });
+const CommentModel = new Schema({
+  uid: { type: String },
+  date: { type: Date, default: Date.now() },
+  comment: { type: String }
+});
 
 const UserModel = new Schema({
   email: {
@@ -18,27 +18,27 @@ const UserModel = new Schema({
   password: {
     type: String,
     required: true
-  }
-  // name: { type: String, required: true },
-  // surname: { type: String, required: true },
+  },
+  name: { type: String, required: true },
+  surname: { type: String, required: true },
   // patronymic: { type: String, required: false },
-  // phoneNumber: { type: String, required: true },
-  // birthdate: { type: String, required: true },
-  // type: { type: Number, required: true },
-  // social: { type: String, required: false },
-  // comments: { type: [CommentModel], default: [] }
+  phoneNumber: { type: String, required: true },
+  birthdate: { type: String, required: true },
+  type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
+  social: { type: String, required: false },
+  comments: { type: [CommentModel], default: [] }
 });
 
 UserModel.pre("save", function(next) {
   const user = this;
   if (this.isModified("password") || this.isNew) {
-    bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         return next(err);
       }
-      bcrypt.hash(user.password, salt, function(err, hash) {
-        if (err) {
-          return next(err);
+      bcrypt.hash(user.password, salt, (error, hash) => {
+        if (error) {
+          return next(error);
         }
         user.password = hash;
         next();
@@ -51,8 +51,7 @@ UserModel.pre("save", function(next) {
 
 // Create method to compare password input to password saved in database
 UserModel.methods.comparePassword = function(pw, cb) {
-  bcrypt.compare(pw, this.password, function(err, isMatch) {
-    console.log(pw);
+  bcrypt.compare(pw, this.password, (err, isMatch) => {
     if (err) {
       return cb(err);
     }

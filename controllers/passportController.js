@@ -4,48 +4,45 @@ const User = require("../models/userModel");
 const config = require("../config/config");
 
 module.exports = {
-  registration: (req, res) => {
+  registration: (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, message: "Please enter email and password." });
     } else {
-      const newUser = new User({
-        email: req.body.email,
-        password: req.body.password
-      });
+      const newUser = new User(req.body);
 
       // Attempt to save the user
-      newUser.save(function(err) {
-        if (err) {
-          return next({ status: 403, message: "User already exist" });
-        }
-        res.json({ success: true, message: "Successfully created new user." });
-      });
+      newUser
+        .save()
+        .then(response => {
+          res.send(response);
+        })
+        .catch(err => {
+          next({ status: 500, message: err.message });
+        });
     }
   },
-  login: (req, res) => {
-    User.findOne(
-      {
-        email: req.body.email
-      },
-      function(err, user) {
-        if (err);
+  login: (req, res, next) => {
+    User.findOne({ email: req.body.email })
+      .then(user => {
         if (!user) {
           next({ status: 403, message: "User not found" });
         } else {
           // Check if password matches
-          user.comparePassword(req.body.password, function(err, isMatch) {
+          user.comparePassword(req.body.password, (err, isMatch) => {
             if (isMatch && !err) {
               // Create token if the password matched and no error was thrown
-              var token = jwt.sign(user, config.secret, {
+              const token = jwt.sign(user, config.secret, {
                 expiresIn: 10080 // in seconds
               });
-              res.json({ success: true, token: "JWT " + token });
+              res.json({ success: true, token: `JWT ${token}` });
             } else {
               next({ status: 403, message: "Password did not match" });
             }
           });
         }
-      }
-    );
+      })
+      .catch(err => {
+        next({ status: 403, message: err.message });
+      });
   }
 };

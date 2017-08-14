@@ -1,17 +1,17 @@
-const Event = require("../models/eventModel");
+const Transaction = require("../models/transactionModel");
 
 module.exports = {
-  getAllEvents: (req, res, next) => {
-    Event.find()
+  getAllTransactions: (req, res, next) => {
+    Transaction.find()
       .then(response => {
         res.send(response);
       })
       .catch(err => {
-        next({ status: 403, message: err.message });
+        next({ status: 500, message: err.message });
       });
   },
-  addNewEvent: (req, res, next) => {
-    Event(req.body)
+  addNewTransaction: (req, res, next) => {
+    Transaction(req.body)
       .save()
       .then(response => {
         res.send(response);
@@ -20,9 +20,9 @@ module.exports = {
         next({ status: 500, message: err.message });
       });
   },
-  getEventById: (req, res, next) => {
+  getTransactioById: (req, res, next) => {
     const { id } = req.params;
-    Event.findOne(id)
+    Transaction.findOne({ _id: id })
       .then(response => {
         res.send(response);
       })
@@ -30,9 +30,9 @@ module.exports = {
         next({ status: 403, message: err.message });
       });
   },
-  deleteEventById: (req, res, next) => {
+  changeTransactionInfo: (req, res, next) => {
     const { id } = req.params;
-    Event.findByIdAndRemove(id)
+    Transaction.findByIdAndUpdate(id, req.body)
       .then(response => {
         res.send(response);
       })
@@ -40,9 +40,19 @@ module.exports = {
         next({ status: 403, message: err.message });
       });
   },
-  changeEventInfo: (req, res, next) => {
+  deleteTransaction: (req, res, next) => {
     const { id } = req.params;
-    Event.findByIdAndUpdate(id, req.body)
+    Transaction.findByIdAndRemove(id)
+      .then(response => {
+        res.send(response);
+      })
+      .catch(err => {
+        next({ status: 403, message: err.message });
+      });
+  },
+  getUserTransaction: (req, res, next) => {
+    const { userId } = req.params;
+    Transaction.find({ uid: userId })
       .then(response => {
         res.send(response);
       })

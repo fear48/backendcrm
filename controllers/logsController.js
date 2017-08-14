@@ -22,7 +22,7 @@ module.exports = {
   },
   getLogById: (req, res, next) => {
     const { id } = req.params;
-    Log.findById(id)
+    Log.findOne({ _id: id })
       .then(response => {
         res.send(response);
       })

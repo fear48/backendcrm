@@ -22,7 +22,7 @@ module.exports = {
   },
   getRoom: (req, res, next) => {
     const { id } = req.params;
-    Room.findById(id)
+    Room.findOne({ _id: id })
       .then(response => {
         res.send(response);
       })

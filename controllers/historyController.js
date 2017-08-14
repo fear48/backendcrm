@@ -22,7 +22,7 @@ module.exports = {
   },
   getHistoryById: (req, res, next) => {
     const { id } = req.params;
-    History.findById(id)
+    History.findOne({ _id: id })
       .then(response => {
         res.send(response);
       })

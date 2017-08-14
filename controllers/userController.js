@@ -4,7 +4,7 @@ const Event = require("../models/eventModel");
 
 module.exports = {
   getAllUsers: (req, res, next) => {
-    User.find()
+    User.find({}, { password: 0 })
       .then(response => {
         res.send(response);
       })
@@ -14,7 +14,7 @@ module.exports = {
   },
   getUserInfo: (req, res, next) => {
     const { id } = req.params;
-    User.findById(id, { password: 0 })
+    User.findOne({ _id: id }, { password: 0 })
       .then(response => {
         res.send(response);
       })
@@ -56,9 +56,13 @@ module.exports = {
     const { id } = req.params;
     User.findByIdAndUpdate(id, {
       $push: { comments: req.body }
-    }).then(response => {
-      next({ status: 403, message: err.message });
-    });
+    })
+      .then(response => {
+        res.send(response);
+      })
+      .catch(err => {
+        next({ status: 403, message: err.message });
+      });
   },
   deleteCommentById: (req, res, next) => {
     const { id, commentId } = req.params;
