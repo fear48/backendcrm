@@ -12,6 +12,7 @@ const passportRouter = require("./routers/passport");
 const logsRouter = require("./routers/logs");
 const transactionRouter = require("./routers/transactions");
 const errorHandler = require("./middlewares/errorHandler");
+const savingLogs = require("./middlewares/savingLogs");
 
 // INITIALIZE APP //
 const app = express();
@@ -35,14 +36,18 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
+// LOGGING//
+// app.use(savingLogs);  may be
+
 // ROUTES //
 app.use("/api", passportRouter);
+app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
 app.use("/api/users", usersRouter);
 app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/logs", logsRouter);
-app.use("/transaction", transactionRouter);
+app.use("/api/transaction", transactionRouter);
 
 // ERRORS
 app.use((req, res, next) => {

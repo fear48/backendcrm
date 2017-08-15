@@ -31,9 +31,13 @@ module.exports = {
           user.comparePassword(req.body.password, (err, isMatch) => {
             if (isMatch && !err) {
               // Create token if the password matched and no error was thrown
-              const token = jwt.sign(user, config.secret, {
-                expiresIn: 10080 // in seconds
-              });
+              const token = jwt.sign(
+                { _id: user._id, userGroup: user.type },
+                config.secret,
+                {
+                  expiresIn: 10080 // in seconds
+                }
+              );
               res.json({ success: true, token: `JWT ${token}` });
             } else {
               next({ status: 403, message: "Password did not match" });
