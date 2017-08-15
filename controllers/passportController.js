@@ -1,15 +1,14 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-const User = require("../models/userModel");
-const config = require("../config/config");
+import User from "../models/userModel";
+import config from "../config/config";
 
-module.exports = {
+export default {
   registration: (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, message: "Please enter email and password." });
     } else {
       const newUser = new User(req.body);
-
       // Attempt to save the user
       newUser
         .save()

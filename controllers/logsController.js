@@ -1,6 +1,6 @@
-const Log = require("../models/logModel");
+import Log from "../models/logModel";
 
-module.exports = {
+export default {
   getAllLogs: (req, res, next) => {
     Log.find()
       .then(response => {

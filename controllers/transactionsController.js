@@ -1,6 +1,6 @@
-const Transaction = require("../models/transactionModel");
+import Transaction from "../models/transactionModel";
 
-module.exports = {
+export default {
   getAllTransactions: (req, res, next) => {
     Transaction.find()
       .then(response => {

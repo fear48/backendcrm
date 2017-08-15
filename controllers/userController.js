@@ -1,8 +1,8 @@
-const User = require("../models/userModel");
-const History = require("../models/historyModel");
-const Event = require("../models/eventModel");
+import User from "../models/userModel";
+import History from "../models/historyModel";
+import Event from "../models/eventModel";
 
-module.exports = {
+export default {
   getAllUsers: (req, res, next) => {
     User.find({}, { password: 0 })
       .then(response => {

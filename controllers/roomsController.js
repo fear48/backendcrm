@@ -1,6 +1,6 @@
-const Room = require("../models/roomModel");
+import Room from "../models/roomModel";
 
-module.exports = {
+export default {
   getAllRooms: (req, res, next) => {
     Room.find()
       .then(response => {

@@ -1,5 +1,5 @@
-const express = require("express");
-const eventController = require("../controllers/eventController");
+import express from "express";
+import eventController from "../controllers/eventController";
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ router.put("/:id", eventController.changeEventInfo);
 
 // брони определенного пользователя
 
-module.exports = router;
+export default router;

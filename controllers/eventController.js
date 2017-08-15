@@ -1,6 +1,6 @@
-const Event = require("../models/eventModel");
+import Event from "../models/eventModel";
 
-module.exports = {
+export default {
   getAllEvents: (req, res, next) => {
     Event.find()
       .then(response => {

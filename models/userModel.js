@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
@@ -60,4 +60,4 @@ UserModel.methods.comparePassword = function(pw, cb) {
 };
 
 const User = mongoose.model("User", UserModel, "users");
-module.exports = User;
+export default User;

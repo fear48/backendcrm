@@ -1,5 +1,5 @@
-const express = require("express");
-const logsController = require("../controllers/logsController");
+import express from "express";
+import logsController from "../controllers/logsController";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/:id", logsController.changeLogInfo);
 router.delete("/:id", logsController.deleteLog);
 router.get("/u/:userId", logsController.getUserLogs);
 
-module.exports = router;
+export default router;

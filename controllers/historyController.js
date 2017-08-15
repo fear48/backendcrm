@@ -1,6 +1,6 @@
-const History = require("../models/historyModel");
+import History from "../models/historyModel";
 
-module.exports = {
+export default {
   getAllHistory: (req, res, next) => {
     History.find()
       .then(response => {

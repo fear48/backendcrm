@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/config");
+import jwt from "jsonwebtoken";
+import config from "../config/config";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   if (token) {
     const decodedToken = jwt.decode(token, config.secret);

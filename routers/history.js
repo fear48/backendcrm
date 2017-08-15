@@ -1,5 +1,5 @@
-const express = require("express");
-const historyController = require("../controllers/historyController");
+import express from "express";
+import historyController from "../controllers/historyController";
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.get("/:id", historyController.getHistoryById);
 router.put("/:id", historyController.changeHistoryInfo);
 router.delete("/:id", historyController.deleteHistory);
 
-module.exports = router;
+export default router;

@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/config");
-const Log = require("../models/logModel");
+import jwt from "jsonwebtoken";
+import config from "../config/config";
+import Log from "../models/logModel";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.decode(token, config.secret);
   let actionType;

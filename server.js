@@ -1,18 +1,18 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import passport from "passport";
 
-const config = require("./config/config");
-const usersRouter = require("./routers/users");
-const historyRouter = require("./routers/history");
-const roomsRouter = require("./routers/rooms");
-const eventsRouter = require("./routers/events");
-const passportRouter = require("./routers/passport");
-const logsRouter = require("./routers/logs");
-const transactionRouter = require("./routers/transactions");
-const errorHandler = require("./middlewares/errorHandler");
-const savingLogs = require("./middlewares/savingLogs");
+import config from "./config/config";
+import passportConfig from "./config/passport";
+import usersRouter from "./routers/users";
+import historyRouter from "./routers/history";
+import roomsRouter from "./routers/rooms";
+import eventsRouter from "./routers/events";
+import passportRouter from "./routers/passport";
+import logsRouter from "./routers/logs";
+import transactionRouter from "./routers/transactions";
+import errorHandler from "./middlewares/errorHandler";
 
 // INITIALIZE APP //
 const app = express();
@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 
 // PASSPORT //
 app.use(passport.initialize());
-require("./config/passport")(passport);
+passportConfig(passport);
 
 // LOGGING//
 // app.use(savingLogs);  may be
