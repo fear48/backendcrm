@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import passport from "passport";
+import cors from 'cors';
 
 import config from "./config/config";
 import passportConfig from "./config/passport";
@@ -29,6 +30,7 @@ mongoose
   });
 
 // MIDDLEWARES //
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
