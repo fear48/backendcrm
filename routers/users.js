@@ -4,7 +4,7 @@ import isAdmin from "../middlewares/isAdmin";
 
 const router = express.Router();
 
-router.get("/", isAdmin, userController.getAllUsers);
+router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserInfo);
 router.put("/:id", userController.changeUserInfo);
 router.delete("/:id", userController.deleteUser);
