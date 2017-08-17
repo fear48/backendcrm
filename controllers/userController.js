@@ -25,6 +25,7 @@ export default {
   changeUserInfo: (req, res, next) => {
     const { id } = req.params;
     User.findByIdAndUpdate(id, req.body)
+      .then(response => User.find({}, { password: 0 }))
       .then(response => {
         res.send(response);
       })

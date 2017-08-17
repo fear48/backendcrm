@@ -33,9 +33,8 @@ export default {
   changeTransactionInfo: (req, res, next) => {
     const { id } = req.params;
     Transaction.findByIdAndUpdate(id, req.body)
-      .then(response => {
-        res.send(response);
-      })
+      .then(response => Transaction.find({}))
+      .then(response => res.send(response))
       .catch(err => {
         next({ status: 403, message: err.message });
       });

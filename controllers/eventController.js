@@ -43,6 +43,7 @@ export default {
   changeEventInfo: (req, res, next) => {
     const { id } = req.params;
     Event.findByIdAndUpdate(id, req.body)
+      .then(response => Event.find({}))
       .then(response => {
         res.send(response);
       })

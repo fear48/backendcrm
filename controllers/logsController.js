@@ -33,6 +33,7 @@ export default {
   changeLogInfo: (req, res, next) => {
     const { id } = req.params;
     Log.findByIdAndUpdate(id, req.body)
+      .then(response => Log.find({}))
       .then(response => {
         res.send(response);
       })

@@ -33,6 +33,7 @@ export default {
   changeRoomInfo: (req, res, next) => {
     const { id } = req.params;
     Room.findByIdAndUpdate(id, req.body)
+      .then(response => Room.find({}))
       .then(response => {
         res.send(response);
       })

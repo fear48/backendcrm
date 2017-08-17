@@ -33,6 +33,7 @@ export default {
   changeHistoryInfo: (req, res, next) => {
     const { id } = req.params;
     History.findByIdAndUpdate(id, req.body)
+      .then(response => History.find({}))
       .then(response => {
         res.send(response);
       })
