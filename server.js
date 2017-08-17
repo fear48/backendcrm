@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import passport from "passport";
-import cors from 'cors';
+import cors from "cors";
 
 import config from "./config/config";
 import passportConfig from "./config/passport";
@@ -13,6 +13,7 @@ import eventsRouter from "./routers/events";
 import passportRouter from "./routers/passport";
 import logsRouter from "./routers/logs";
 import transactionRouter from "./routers/transactions";
+import tasksRouter from "./routers/tasks";
 import errorHandler from "./middlewares/errorHandler";
 
 // INITIALIZE APP //
@@ -30,7 +31,7 @@ mongoose
   });
 
 // MIDDLEWARES //
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -49,7 +50,8 @@ app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/logs", logsRouter);
-app.use("/api/transaction", transactionRouter);
+app.use("/api/transactions", transactionRouter);
+app.use("/api/tasks", tasksRouter);
 
 // ERRORS
 app.use((req, res, next) => {

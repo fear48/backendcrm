@@ -1,4 +1,5 @@
 import Transaction from "../models/transactionModel";
+import User from "../models/userModel";
 
 export default {
   getAllTransactions: (req, res, next) => {
@@ -11,14 +12,26 @@ export default {
       });
   },
   addNewTransaction: (req, res, next) => {
-    Transaction(req.body)
-      .save()
-      .then(response => {
-        res.send(response);
+    const { uid, date, sum, type, category } = req.body;
+    User.findById(uid).then(({ name, surname, phoneNumber }) =>
+      Transaction({
+        name,
+        surname,
+        phoneNumber,
+        date,
+        sum,
+        type,
+        category,
+        uid
       })
-      .catch(err => {
-        next({ status: 500, message: err.message });
-      });
+        .save()
+        .then(response => {
+          res.send(response);
+        })
+        .catch(err => {
+          next({ status: 500, message: err.message });
+        })
+    );
   },
   getTransactioById: (req, res, next) => {
     const { id } = req.params;
