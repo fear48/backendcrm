@@ -44,7 +44,7 @@ export default {
   changeTaskInfo: (req, res, next) => {
     const { id } = req.params;
     Task.findByIdAndUpdate(id, req.body)
-      .then(response => Room.find({}))
+      .then(response => Task.find({}))
       .then(response => {
         res.send(response);
       })
