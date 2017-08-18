@@ -12,19 +12,19 @@ export default {
       });
   },
   addNewTransaction: (req, res, next) => {
-    const { uid, date, sum, type, category } = req.body;
+    const { uid, sum, type, category } = req.body;
     User.findById(uid).then(({ name, surname, phoneNumber }) =>
       Transaction({
         name,
         surname,
         phoneNumber,
-        date,
         sum,
         type,
         category,
         uid
       })
         .save()
+        .then(() => Transaction.find({}))
         .then(response => {
           res.send(response);
         })
@@ -46,7 +46,7 @@ export default {
   changeTransactionInfo: (req, res, next) => {
     const { id } = req.params;
     Transaction.findByIdAndUpdate(id, req.body)
-      .then(response => Transaction.find({}))
+      .then(() => Transaction.find({}))
       .then(response => res.send(response))
       .catch(err => {
         next({ status: 403, message: err.message });
@@ -55,6 +55,7 @@ export default {
   deleteTransaction: (req, res, next) => {
     const { id } = req.params;
     Transaction.findByIdAndRemove(id)
+      .then(() => Transaction.find({}))
       .then(response => {
         res.send(response);
       })

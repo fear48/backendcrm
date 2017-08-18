@@ -8,7 +8,7 @@ const TaskModel = new Schema({
   title: { type: String, required: true },
   task: { type: String, required: true },
   endDate: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now(), required: true },
+  createdAt: { type: Date, default: new Date(), required: true },
   completed: { type: Boolean, default: false, required: true }
 });
 

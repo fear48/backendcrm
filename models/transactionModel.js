@@ -7,7 +7,7 @@ const TransactionModel = new Schema({
   surname: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   uid: { type: String, required: true },
-  date: { type: String, required: true },
+  date: { type: Date, default: new Date() },
   sum: { type: Number, required: true },
   type: { type: Number, required: true },
   category: { type: String, required: true }
