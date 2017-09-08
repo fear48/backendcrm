@@ -19,13 +19,13 @@ const UserModel = new Schema({
     type: String,
     required: true
   },
-  // name: { type: String, required: true },
-  // surname: { type: String, required: true },
-  // phoneNumber: { type: String, required: true },
-  // birthdate: { type: String, required: true },
-  // type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
-  // social: { type: String, required: false },
-  // comments: { type: [CommentModel], default: [] },
+  name: { type: String, required: true },
+  surname: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+  birthdate: { type: String, required: true },
+  type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
+  social: { type: String, required: false },
+  comments: { type: [CommentModel], default: [] },
   avatar: { type: String, required: false, default: 'noavatar.jpg' }
 });
 

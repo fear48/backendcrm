@@ -51,7 +51,7 @@ passportConfig(passport);
 
 // ROUTES //
 app.use("/api", passportRouter);
-// app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
+app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
 app.use("/api/users", usersRouter);
 app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
