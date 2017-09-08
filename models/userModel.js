@@ -19,17 +19,17 @@ const UserModel = new Schema({
     type: String,
     required: true
   },
-  name: { type: String, required: true },
-  surname: { type: String, required: true },
-  // patronymic: { type: String, required: false },
-  phoneNumber: { type: String, required: true },
-  birthdate: { type: String, required: true },
-  type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
-  social: { type: String, required: false },
-  comments: { type: [CommentModel], default: [] }
+  // name: { type: String, required: true },
+  // surname: { type: String, required: true },
+  // phoneNumber: { type: String, required: true },
+  // birthdate: { type: String, required: true },
+  // type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
+  // social: { type: String, required: false },
+  // comments: { type: [CommentModel], default: [] },
+  avatar: { type: String, required: false, default: 'noavatar.jpg' }
 });
 
-UserModel.pre("save", function(next) {
+UserModel.pre("save", function (next) {
   const user = this;
   if (this.isModified("password") || this.isNew) {
     bcrypt.genSalt(10, (err, salt) => {
@@ -50,7 +50,7 @@ UserModel.pre("save", function(next) {
 });
 
 // Create method to compare password input to password saved in database
-UserModel.methods.comparePassword = function(pw, cb) {
+UserModel.methods.comparePassword = function (pw, cb) {
   bcrypt.compare(pw, this.password, (err, isMatch) => {
     if (err) {
       return cb(err);

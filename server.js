@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import passport from "passport";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 
 import config from "./config/config";
 import passportConfig from "./config/passport";
@@ -32,8 +33,14 @@ mongoose
 
 // MIDDLEWARES //
 app.use(cors());
+app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 }
+  })
+);
 
 // PASSPORT //
 app.use(passport.initialize({}));

@@ -13,5 +13,6 @@ router.post("/:id/comments", userController.addCommentToUser);
 router.delete("/:id/comments/:commentId", userController.deleteCommentById);
 router.get("/:id/history", userController.getUserHistory);
 router.get("/:id/events", userController.getUserEvents);
+router.post("/:id/avatar", userController.updateAvatar)
 
 export default router;

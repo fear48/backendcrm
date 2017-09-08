@@ -2,3 +2,6 @@
 package-lock.json
 /lib/
 /dist/
+/public/
+.gitignore
+package-lock.json

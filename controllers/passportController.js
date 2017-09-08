@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import randomString from 'randomstring'
 
 import User from "../models/userModel";
 import config from "../config/config";
@@ -8,16 +9,34 @@ export default {
     if (!req.body.email || !req.body.password) {
       res.json({ success: false, message: "Please enter email and password." });
     } else {
-      const newUser = new User(req.body);
       // Attempt to save the user
-      newUser
-        .save()
-        .then(response => {
-          res.send(response);
-        })
-        .catch(err => {
-          next({ status: 500, message: err.message });
+      const { avatar } = req.files;
+      if (!avatar) return next({ status: 403, message: "No image provided" })
+
+      const info = avatar.mimetype.split("/");
+      if (info[0] === "image") {
+        // Generating random name for file
+        const randomName = randomString.generate({
+          length: 12,
+          charset: "alphabetic"
         });
+        // Moving dota to folder
+        avatar.mv(`./public/${randomName}.${info[1]}`, err => {
+          if (err) return next({ status: 403, message: err.message });
+          const { body } = req;
+          User({ ...body, avatar: `${randomName}.${info[1]}` })
+            .save()
+            .then(response => {
+              res.send(response);
+            })
+            .catch(err => {
+              next({ status: 500, message: err.message });
+            });
+        });
+
+      } else {
+        next({ status: 403, message: "Type of file is not image" });
+      }
     }
   },
   login: (req, res, next) => {
