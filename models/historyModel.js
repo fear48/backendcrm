@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 const HistoryModel = new Schema({
   uid: { type: String, required: true },
-  date: { type: String, required: true },
+  members: { type: String, required: true },
+  sum: { type: Number, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
   time: { type: String, required: true },
   room: { type: String, required: true }
 });

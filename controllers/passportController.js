@@ -53,7 +53,7 @@ export default {
                 { _id: user._id, userGroup: user.type },
                 config.secret,
                 {
-                  expiresIn: 10080 // in seconds
+                  expiresIn: 259200 // 3 days
                 }
               );
               res.json({ success: true, token: `JWT ${token}` });

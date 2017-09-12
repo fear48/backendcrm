@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const EventModel = new Schema({
   title: { type: String, required: true },
-  start: { type: Date, required: true },
-  end: { type: Date, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
   prepaid: { type: Boolean, default: false, required: true },
   paid: { type: Boolean, default: true, required: true },
   roomId: { type: String, required: true },

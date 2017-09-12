@@ -15,6 +15,8 @@ import passportRouter from "./routers/passport";
 import logsRouter from "./routers/logs";
 import transactionRouter from "./routers/transactions";
 import tasksRouter from "./routers/tasks";
+import salesRouter from './routers/sales'
+import configRouter from './routers/config'
 import errorHandler from "./middlewares/errorHandler";
 
 // INITIALIZE APP //
@@ -59,6 +61,8 @@ app.use("/api/events", eventsRouter);
 app.use("/api/logs", logsRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/tasks", tasksRouter);
+app.use('/api/sales', salesRouter);
+app.use('/api/config', configRouter);
 
 // ERRORS
 app.use((req, res, next) => {
