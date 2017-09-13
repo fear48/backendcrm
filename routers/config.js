@@ -5,7 +5,7 @@ import config, { changeConfig } from '../config/config';
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  res.send(config)
+  res.send(config.values)
 })
 router.post('/:field', (req, res, next) => {
   const { params: { field }, body: { value } } = req;
