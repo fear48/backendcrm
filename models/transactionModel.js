@@ -10,7 +10,8 @@ const TransactionModel = new Schema({
   date: { type: Date, default: new Date() },
   sum: { type: Number, required: true },
   type: { type: Number, required: true },
-  category: { type: String, required: true }
+  category: { type: String, required: true },
+  payType: { type: Number, required: true }
 });
 
 const Transaction = mongoose.model(
