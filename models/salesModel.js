@@ -8,7 +8,8 @@ const SaleSchema = new Schema({
   uid: { type: String, required: false },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  salePercent: { type: Number, required: true }
+  salePercent: { type: Number, required: true },
+  roomName: { type: String, required: true }
 })
 
 const Sale = mongoose.model('Sale', SaleSchema, 'sales');

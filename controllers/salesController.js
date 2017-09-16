@@ -1,4 +1,5 @@
 import Sale from '../models/salesModel';
+import Room from '../models/roomModel';
 
 export default {
   getAllSales: (req, res, next) => {
@@ -9,8 +10,13 @@ export default {
     })
   },
   addNewSale: (req, res, next) => {
-    Sale(req.body).then(response => {
-      res.send(response)
+    const { roomId } = req.body;
+    Room.findOne({ _id: roomId }).then(({ roomName }) => {
+
+      Sale({ ...req.body, roomName }).save().then(response => {
+        res.send(response)
+      })
+
     }).catch(err => {
       next({ status: 403, message: err.message })
     })

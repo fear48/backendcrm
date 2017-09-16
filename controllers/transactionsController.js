@@ -12,7 +12,7 @@ export default {
       });
   },
   addNewTransaction: (req, res, next) => {
-    const { uid, sum, type, category } = req.body;
+    const { uid, sum, type, category, payType } = req.body;
     User.findById(uid).then(({ name, surname, phoneNumber }) =>
       Transaction({
         name,
@@ -21,7 +21,8 @@ export default {
         sum,
         type,
         category,
-        uid
+        uid,
+        payType
       })
         .save()
         .then(() => Transaction.find({}))
