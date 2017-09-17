@@ -61,8 +61,8 @@ app.use("/api/events", eventsRouter);
 app.use("/api/logs", logsRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/tasks", tasksRouter);
-app.use('/api/sales', salesRouter);
-app.use('/api/config', configRouter);
+app.use("/api/sales", salesRouter);
+app.use("/api/config", configRouter);
 
 // ERRORS
 app.use((req, res, next) => {

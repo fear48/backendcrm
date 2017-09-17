@@ -23,12 +23,23 @@ export default {
   },
   changeSaleInfo: (req, res, next) => {
     const { id } = req.params;
-    Sale.findByIdAndUpdate(id, req.body)
-      .then(response => {
+    if (req.body.roomId) {
+      Room.findOne({ _id: req.body.roomId }).then(({ roomName }) =>
+        Sale.findOneAndUpdate({ _id: id }, { ...req.body, roomName })
+      ).then(response => {
         res.send(response)
-      }).catch(err => {
-        next({ status: 403, message: err.message })
       })
+        .catch(err => {
+          next({ status: 403, message: err.message })
+        })
+    } else {
+      Sale.findOneAndUpdate({ _id: id }, req.body).then(response => {
+        res.send(response)
+      })
+        .catch(err => {
+          next({ status: 403, message: err.message })
+        })
+    }
   },
   deleteSale: (req, res, next) => {
     const { id } = req.params;

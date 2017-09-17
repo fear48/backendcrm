@@ -12,15 +12,12 @@ export default {
       });
   },
   addNewTask: (req, res, next) => {
-    const { uid, endDate, title, task, complited } = req.body;
+    const { uid } = req.body;
     User.findById(uid).then(({ name, surname }) =>
       Task({
+        ...req.body,
         name,
-        surname,
-        endDate,
-        title,
-        task,
-        complited
+        surname
       })
         .save()
         .then(response => {
