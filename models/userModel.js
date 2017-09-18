@@ -26,7 +26,7 @@ const UserModel = new Schema({
   type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
   social: { type: String, required: false },
   comments: { type: [CommentModel], default: [] },
-  avatar: { type: String, required: false, default: 'noavatar.jpg' }
+  avatar: { type: String, required: true, }
 });
 
 UserModel.pre("save", function (next) {
