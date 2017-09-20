@@ -52,7 +52,7 @@ export default {
                   expiresIn: 259200 // 3 days
                 }
               );
-              res.json({ success: true, token: `JWT ${token}` });
+              res.json({ success: true, token: `JWT ${token}`, userData: { ...user._doc, password: 0 } });
             } else {
               next({ status: 403, message: "Password did not match" });
             }
