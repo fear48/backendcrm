@@ -18,6 +18,7 @@ import tasksRouter from "./routers/tasks";
 import salesRouter from './routers/sales'
 import configRouter from './routers/config'
 import errorHandler from "./middlewares/errorHandler";
+import agenda from './additions/schedule'
 
 // INITIALIZE APP //
 const app = express();
@@ -32,6 +33,13 @@ mongoose
   .catch(err => {
     throw new Error(err);
   });
+
+// AGENDA INITIALIZE
+agenda.on("ready", () => {
+  console.log("Agenda connected to database")
+  agenda.every('1 minute', 'delete old events');
+  agenda.start()
+})
 
 // MIDDLEWARES //
 app.use(cors());
