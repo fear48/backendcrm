@@ -13,7 +13,7 @@ agenda.define('delete old events', (job, done) => {
   date.setHours(date.getHours() - paymentExpiresAt)
   Event.remove({ createdAt: { $lt: date } }, done)
   console.log('Agenda "delete old events" complited: ', date.toLocaleTimeString())
-  console.log('Payment expires: ', paymentExpiresAt)
+  console.log('Payment expires in (h): ', paymentExpiresAt)
 })
 
 export default agenda;

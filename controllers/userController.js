@@ -45,38 +45,6 @@ export default {
         next({ status: 403, message: err.message });
       });
   },
-  getUsersComments: (req, res, next) => {
-    const { id } = req.params;
-    User.findById(id)
-      .then(response => {
-        res.send(response.comments);
-      })
-      .catch(err => {
-        next({ status: 403, message: err.message });
-      });
-  },
-  addCommentToUser: (req, res, next) => {
-    const { id } = req.params;
-    User.findByIdAndUpdate(id, {
-      $push: { comments: req.body }
-    })
-      .then(response => {
-        res.send(response);
-      })
-      .catch(err => {
-        next({ status: 403, message: err.message });
-      });
-  },
-  deleteCommentById: (req, res, next) => {
-    const { id, commentId } = req.params;
-    User.findByIdAndUpdate(id, { $pull: { comments: { _id: commentId } } })
-      .then(response => {
-        res.send(response);
-      })
-      .catch(err => {
-        next({ status: 403, message: err.message });
-      });
-  },
   updateAvatar: (req, res, next) => {
     const { id } = req.params;
     const { avatar } = req.files;

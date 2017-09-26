@@ -3,12 +3,6 @@ import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
-const CommentModel = new Schema({
-  uid: { type: String },
-  date: { type: Date, default: Date.now() },
-  comment: { type: String }
-});
-
 const UserModel = new Schema({
   email: {
     type: String,
@@ -25,7 +19,6 @@ const UserModel = new Schema({
   birthdate: { type: String, required: true },
   type: { type: Number, required: true }, // 0 - user; 1 - admin; 2 - main admin
   social: { type: String, required: false },
-  comments: { type: [CommentModel], default: [] },
   avatar: { type: String, required: true, }
 });
 
