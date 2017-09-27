@@ -23,6 +23,17 @@ export default {
         next({ status: 403, message: err.message })
       })
   },
+  changeClient(req, res, next) {
+    const { id } = req.params;
+    Client
+      .findOneAndUpdate({ phoneNumber: id }, { ...req.body })
+      .then(response => {
+        res.send(response)
+      })
+      .catch(err => {
+        next({ status: 403, message: err.message })
+      })
+  },
   deleteClient(req, res, next) {
     const { id } = req.params
     Client

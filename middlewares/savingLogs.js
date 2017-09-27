@@ -18,7 +18,7 @@ export default (req, res, next) => {
     }
     Log({
       uid: decodedToken._id,
-      actionType: actionType
+      actionType
     })
       .save(response => {
         console.log(response);

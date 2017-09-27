@@ -1,5 +1,6 @@
 import Transaction from "../models/transactionModel";
 import User from "../models/userModel";
+import Category from "../models/categoryModel"
 
 export default {
   getAllTransactions: (req, res, next) => {
@@ -12,15 +13,18 @@ export default {
       });
   },
   addNewTransaction: (req, res, next) => {
-    const { uid } = req.body;
+    const { uid, category } = req.body;
     User.findById(uid).then(({ name, surname, phoneNumber }) =>
-      Transaction({
-        ...req.body,
-        name,
-        surname,
-        phoneNumber
-      })
-        .save()
+      Category.findOne({ _id: category })
+        .then(cate =>
+          Transaction({
+            ...req.body,
+            categoryName: cate.name,
+            name,
+            surname,
+            phoneNumber
+          }).save()
+        )
         .then(() => Transaction.find({}))
         .then(response => {
           res.send(response);
@@ -42,15 +46,55 @@ export default {
   },
   changeTransactionInfo: (req, res, next) => {
     const { id } = req.params;
-    if (req.body.uid) {
-      User.findOne({ _id: req.body.uid }).then(({ name, surname, phoneNumber }) =>
-        Transaction
-          .findOneAndUpdate({ _id: id }, { ...req.body, name, surname, phoneNumber })
+    const { uid, category } = req.body
+    if (uid && category) {
+      User.findById(uid).then(({ name, surname, phoneNumber }) =>
+        Category.findOne({ _id: category })
+          .then(cate =>
+            Transaction
+              .findOneAndUpdate({ _id: id }, {
+                ...req.body,
+                categoryName: cate.name,
+                name,
+                surname,
+                phoneNumber
+              })
+          )
+          .then(() => Transaction.find({}))
           .then(response => { res.send(response) })
           .catch(err => {
             next({ status: 403, message: err.message });
           })
       )
+    } else if (uid) {
+      User.findById(uid).then(({ name, surname, phoneNumber }) =>
+        Transaction
+          .findOneAndUpdate({ _id: id }, {
+            ...req.body,
+            name,
+            surname,
+            phoneNumber
+          })
+          .then(() => Transaction.find({}))
+          .then(response => { res.send(response) })
+          .catch(err => {
+            next({ status: 403, message: err.message });
+          })
+      )
+    } else if (category) {
+      Category.findOne({ _id: category })
+        .then(cate =>
+          Transaction
+            .findOneAndUpdate({ _id: id }, {
+              ...req.body,
+              categoryName: cate.name,
+            })
+        )
+        .then(() => Transaction.find({}))
+        .then(response => { res.send(response) })
+        .catch(err => {
+          next({ status: 403, message: err.message });
+        });
     } else {
       Transaction.findOneAndUpdate({ _id: id }, req.body)
         .then(response => { res.send(response) })

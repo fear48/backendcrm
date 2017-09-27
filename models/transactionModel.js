@@ -11,6 +11,7 @@ const TransactionModel = new Schema({
   sum: { type: Number, required: true },
   type: { type: Number, required: true },
   category: { type: String, required: true },
+  categoryName: { type: String },
   payType: { type: Number, required: true }
 });
 

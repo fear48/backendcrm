@@ -18,6 +18,7 @@ import tasksRouter from "./routers/tasks";
 import salesRouter from './routers/sales'
 import configRouter from './routers/config'
 import clientRouter from './routers/clients'
+import categoryRouter from './routers/category'
 import errorHandler from "./middlewares/errorHandler";
 import agenda from './additions/schedule'
 
@@ -64,6 +65,7 @@ passportConfig(passport);
 app.use("/api", passportRouter);
 app.use("/api/clients", clientRouter);
 app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
+app.use('/api/categories', categoryRouter)
 app.use("/api/users", usersRouter);
 app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
