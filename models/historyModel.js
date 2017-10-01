@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const HistoryModel = new Schema({
-  uid: { type: String, required: true },
+  name: { type: String, required: true },
+  phoneNumber: { type: Number, required: true },
   members: { type: String, required: true },
   sum: { type: Number, required: true },
   startDate: { type: Date, required: true },
