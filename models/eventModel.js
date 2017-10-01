@@ -7,7 +7,7 @@ const EventModel = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   prepaid: { type: Boolean, default: false, required: true },
-  paid: { type: Boolean, default: true, required: true },
+  paid: { type: Boolean, default: false, required: true },
   roomId: { type: String, required: true },
   uid: { type: String, required: true },
   sum: { type: Number, required: true },
