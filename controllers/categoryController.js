@@ -1,6 +1,16 @@
 import Category from '../models/categoryModel'
 
 export default {
+  getCategories(req, res, next) {
+    Category
+      .find({})
+      .then(response => {
+        res.send(response)
+      })
+      .catch(err => {
+        next({ status: 403, message: err.message })
+      })
+  },
   addCategory(req, res, next) {
     Category(req.body)
       .save()
