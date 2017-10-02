@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const ClientSchema = new Schema({
   name: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
+  phoneNumber: { type: String, required: true, unique: true },
   comments: { type: [], default: [] },
   email: { type: String },
   social: { type: String }
