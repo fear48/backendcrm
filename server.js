@@ -68,13 +68,13 @@ app.use("/api/rooms", roomsRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/history", historyRouter);
+app.use("/api/config", configRouter);
 app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
 app.use("/api/categories", categoryRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/logs", logsRouter);
 app.use("/api/tasks", tasksRouter);
 app.use("/api/sales", salesRouter);
-app.use("/api/config", configRouter);
 
 // ERRORS
 app.use((req, res, next) => {
