@@ -15,12 +15,12 @@ import passportRouter from "./routers/passport";
 import logsRouter from "./routers/logs";
 import transactionRouter from "./routers/transactions";
 import tasksRouter from "./routers/tasks";
-import salesRouter from './routers/sales'
-import configRouter from './routers/config'
-import clientRouter from './routers/clients'
-import categoryRouter from './routers/category'
+import salesRouter from "./routers/sales";
+import configRouter from "./routers/config";
+import clientRouter from "./routers/clients";
+import categoryRouter from "./routers/category";
 import errorHandler from "./middlewares/errorHandler";
-import agenda from './additions/schedule'
+import agenda from "./additions/schedule";
 
 // INITIALIZE APP //
 const app = express();
@@ -38,14 +38,14 @@ mongoose
 
 // AGENDA INITIALIZE
 agenda.on("ready", () => {
-  console.log("Agenda connected to database")
-  agenda.every('1 minute', 'delete old events');
-  agenda.start()
-})
+  console.log("Agenda connected to database");
+  agenda.every("1 minute", "delete old events");
+  agenda.start();
+});
 
 // MIDDLEWARES //
 app.use(cors());
-app.use(express.static('public'))
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
@@ -64,14 +64,14 @@ passportConfig(passport);
 // ROUTES //
 app.use("/api", passportRouter);
 app.use("/api/clients", clientRouter);
-app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
-app.use('/api/categories', categoryRouter)
-app.use("/api/users", usersRouter);
-app.use("/api/history", historyRouter);
 app.use("/api/rooms", roomsRouter);
 app.use("/api/events", eventsRouter);
-app.use("/api/logs", logsRouter);
 app.use("/api/transactions", transactionRouter);
+app.use("/api/history", historyRouter);
+app.use(passport.authenticate("jwt", { session: false })); // cheak if unauthorized
+app.use("/api/categories", categoryRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/logs", logsRouter);
 app.use("/api/tasks", tasksRouter);
 app.use("/api/sales", salesRouter);
 app.use("/api/config", configRouter);
